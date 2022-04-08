@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         android:largeHeap="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".ui.component.shops.ShopsListActivity"
+        <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +28,9 @@
             </intent-filter>
         </activity>
 
-        <activity
+        <!--activity
             android:name=".ui.component.shops.details.DetailsActivity"
-            android:label="@string/title_activity_shops_details" />
+            android:label="@string/title_activity_shops_details" /!-->
     </application>
 
 </manifest>

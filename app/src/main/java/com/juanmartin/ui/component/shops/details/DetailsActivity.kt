@@ -3,57 +3,61 @@ package com.juanmartin.ui.component.shops.details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
-import androidx.activity.viewModels
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.juanmartin.API_KEY_STATIC_MAPS
-import com.juanmartin.R
 import com.juanmartin.SHOP_ITEM_KEY
 import com.juanmartin.URL_STATIC_MAPS
 import com.juanmartin.data.dto.comercios.ShopsItem
 import com.juanmartin.databinding.DetailsLayoutBinding
-import com.juanmartin.ui.base.BaseActivity
+import com.juanmartin.ui.base.BaseFragment
 import com.juanmartin.utils.loadImage
 import com.juanmartin.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class DetailsActivity : BaseActivity() {
+class DetailsActivity : BaseFragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
-
     private lateinit var binding: DetailsLayoutBinding
-    private var menu: Menu? = null
-
-
-    override fun initViewBinding() {
-        binding = DetailsLayoutBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.initIntentData(
-            intent.getParcelableExtra(SHOP_ITEM_KEY)
-                ?: ShopsItem()
-        )
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.details_menu, menu)
-        this.menu = menu
-        return super.onCreateOptionsMenu(menu)
-    }
+    private lateinit var navController: NavController
 
     override fun observeViewModel() {
         observe(viewModel.shopData, ::initializeView)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DetailsLayoutBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            viewModel.initIntentData(
+                it.getParcelable(SHOP_ITEM_KEY)
+                    ?: ShopsItem()
+            )
+        }
+    }
+
     private fun initializeView(shopItem: ShopsItem) {
-        supportActionBar?.title = shopItem.name
+        activity?.title = shopItem.name
         binding.ivShopImage.loadImage(shopItem.logo?.url)
 
         //location

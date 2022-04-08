@@ -10,6 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import com.google.android.material.snackbar.Snackbar
 import com.juanmartin.R
 import com.squareup.picasso.Picasso
@@ -109,5 +110,16 @@ fun ImageView.loadImage(url: String?) {
         Picasso.get().load(R.drawable.ic_launcher_background).error(android.R.drawable.sym_def_app_icon).into(this)
     }
 
+}
+
+fun NavController.popBackStackAllInstances(destination: Int, inclusive: Boolean): Boolean {
+    var popped: Boolean
+    while (true) {
+        popped = popBackStack(destination, inclusive)
+        if (!popped) {
+            break
+        }
+    }
+    return popped
 }
 
