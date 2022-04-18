@@ -6,7 +6,7 @@
     app:startDestination="@id/shopsListActivity">
     <fragment
         android:id="@+id/shopsListActivity"
-        android:name="com.juanmartin.ui.component.shops.ShopsListActivity"
+        android:name="com.juanmartin.ui.component.shops.ShopsListFragment"
         android:label="ShopsListActivity" >
         <action
             android:id="@+id/action_shopsListActivity_to_detailsActivity"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsActivity"
-        android:name="com.juanmartin.ui.component.shops.details.DetailsActivity"
+        android:name="com.juanmartin.ui.component.shops.details.DetailsFragment"
         android:label="DetailsActivity" >
 
     </fragment>

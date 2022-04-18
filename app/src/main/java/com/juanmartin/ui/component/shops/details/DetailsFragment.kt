@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class DetailsActivity : BaseFragment() {
+class DetailsFragment : BaseFragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
     private lateinit var binding: DetailsLayoutBinding

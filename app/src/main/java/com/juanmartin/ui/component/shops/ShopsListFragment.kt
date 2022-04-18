@@ -18,12 +18,10 @@ import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
@@ -35,17 +33,15 @@ import com.juanmartin.data.dto.comercios.Shops
 import com.juanmartin.data.dto.comercios.ShopsItem
 import com.juanmartin.data.error.SEARCH_ERROR
 import com.juanmartin.databinding.ShopsActivityBinding
-import com.juanmartin.ui.base.BaseActivity
 import com.juanmartin.ui.base.BaseFragment
 import com.juanmartin.ui.component.shops.adapter.ShopCategoryAdapter
 import com.juanmartin.ui.component.shops.adapter.ShopsAdapter
-import com.juanmartin.ui.component.shops.details.DetailsActivity
 import com.juanmartin.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class ShopsListActivity : BaseFragment() {
+class ShopsListFragment : BaseFragment() {
     private lateinit var binding: ShopsActivityBinding
 
     private val shopsListViewModel: ShopsListViewModel by viewModels()
@@ -187,11 +183,11 @@ class ShopsListActivity : BaseFragment() {
     }
 
 
-    private fun observeSnackBarMessages(event: LiveData<SingleEvent<Any>>) {
+    private fun observeSnackBarMessages(event: LiveData<Any>) {
         binding.root.setupSnackbar(this, event, Snackbar.LENGTH_LONG)
     }
 
-    private fun observeToast(event: LiveData<SingleEvent<Any>>) {
+    private fun observeToast(event: LiveData<Any>) {
         binding.root.showToast(this, event, Snackbar.LENGTH_LONG)
     }
 

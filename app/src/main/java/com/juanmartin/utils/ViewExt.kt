@@ -59,11 +59,11 @@ fun View.showSnackbar(snackbarText: String, timeLength: Int) {
  */
 fun View.setupSnackbar(
     lifecycleOwner: LifecycleOwner,
-    snackbarEvent: LiveData<SingleEvent<Any>>,
+    snackbarEvent: LiveData<Any>,
     timeLength: Int
 ) {
     snackbarEvent.observe(lifecycleOwner, Observer { event ->
-        event.getContentIfNotHandled()?.let {
+        event?.let {
             when (it) {
                 is String -> {
                     hideKeyboard()
@@ -83,12 +83,12 @@ fun View.setupSnackbar(
 
 fun View.showToast(
     lifecycleOwner: LifecycleOwner,
-    ToastEvent: LiveData<SingleEvent<Any>>,
+    ToastEvent: LiveData<Any>,
     timeLength: Int
 ) {
 
     ToastEvent.observe(lifecycleOwner, Observer { event ->
-        event.getContentIfNotHandled()?.let {
+        event?.let {
             when (it) {
                 is String -> Toast.makeText(this.context, it, timeLength).show()
                 is Int -> Toast.makeText(this.context, this.context.getString(it), timeLength)

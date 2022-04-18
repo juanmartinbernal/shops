@@ -11,7 +11,6 @@ import com.juanmartin.data.dto.comercios.Shops
 import com.juanmartin.data.dto.comercios.ShopsItem
 import com.juanmartin.ui.base.BaseViewModel
 import com.juanmartin.ui.component.shops.entities.ParamFilter
-import com.juanmartin.utils.SingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -59,12 +58,12 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
      * Error handling as UI
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private val showSnackBarPrivate = MutableLiveData<SingleEvent<Any>>()
-    val showSnackBar: LiveData<SingleEvent<Any>> get() = showSnackBarPrivate
+    private val showSnackBarPrivate = MutableLiveData<Any>()
+    val showSnackBar: LiveData<Any> get() = showSnackBarPrivate
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
-    val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
+    private val showToastPrivate = MutableLiveData<Any>()
+    val showToast: LiveData<Any> get() = showToastPrivate
 
 
     fun getShops(location: Location?) {
@@ -98,7 +97,7 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
 
     fun showToastMessage(errorCode: Int) {
         val error = errorManager.getError(errorCode)
-        showToastPrivate.value = SingleEvent(error.description)
+        showToastPrivate.value = error.description
     }
 
     fun onSearchClick(query: String) {
