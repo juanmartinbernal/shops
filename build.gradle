@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.hilt_version ='2.38.1'
-    ext.kotlin_version = "1.6.20"
+    ext.kotlin_version = "1.6.21"
     repositories {
         google()
         mavenCentral()
@@ -31,7 +31,7 @@ ext {
     moshiVersion = '1.11.0'
     retrofitVersion = '2.9.0'
     okhttpInterceptorVersion = '4.9.0'
-    activityKtxVersion= '1.6.0-alpha01'
+    activityKtxVersion= '1.6.0-alpha03'
     hilt_viewmodels = '1.0.0-alpha03'
-    nav_version = "2.4.1"
+    nav_version = "2.4.2"
 }
