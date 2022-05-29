@@ -62,7 +62,7 @@ class ShopsListFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ShopsActivityBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -145,7 +145,7 @@ class ShopsListFragment : BaseFragment() {
     }
 
     private fun bindListData(shops: Shops) {
-        if (!(shops.shopsList.isNullOrEmpty())) {
+        if (shops.shopsList.isNotEmpty()) {
             shopAdapter = ShopsAdapter(
                 shopsListViewModel,
                 shops.shopsList
@@ -161,7 +161,7 @@ class ShopsListFragment : BaseFragment() {
 
     private fun drawCategories(shops: Shops) {
         val categories: MutableList<String> = mutableListOf()
-        if (!(shops.shopsList.isNullOrEmpty())) {
+        if (shops.shopsList.isNotEmpty()) {
             shops.shopsList.forEach {
                 if (!categories.contains(it.category)) {
                     if (it.category != null && it.category.isNotEmpty()) {
@@ -266,7 +266,7 @@ class ShopsListFragment : BaseFragment() {
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        val mLocationRequest = LocationRequest.create().apply {
+       LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             interval = 0
             fastestInterval = 0

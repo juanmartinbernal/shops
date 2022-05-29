@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -36,7 +35,7 @@ class DetailsFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DetailsLayoutBinding.inflate(inflater)
         return binding.root
     }
@@ -75,7 +74,7 @@ class DetailsFragment : BaseFragment() {
         //extras
         var imgUrl = ""
         if (shopItem.photos?.size != 0) {
-            imgUrl = shopItem.photos?.get(0)?.thumbnails?.medium.toString();
+            imgUrl = shopItem.photos?.get(0)?.thumbnails?.medium.toString()
         }
         binding.imgExtras.loadImage(imgUrl)
         binding.txtInfo1Extras.text = shopItem.shortDescription
