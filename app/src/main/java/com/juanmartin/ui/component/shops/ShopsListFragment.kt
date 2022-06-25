@@ -284,7 +284,7 @@ class ShopsListFragment : BaseFragment() {
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation: Location = locationResult.lastLocation
+            val mLastLocation: Location? = locationResult.lastLocation
             shopsListViewModel.getShops(mLastLocation)
         }
     }
