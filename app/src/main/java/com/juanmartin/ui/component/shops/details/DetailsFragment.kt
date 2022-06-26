@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.juanmartin.API_KEY_STATIC_MAPS
 import com.juanmartin.SHOP_ITEM_KEY
 import com.juanmartin.URL_STATIC_MAPS
-import com.juanmartin.data.dto.comercios.ShopsItem
+import com.juanmartin.data.dto.comercios.Shops
 import com.juanmartin.databinding.DetailsLayoutBinding
 import com.juanmartin.ui.base.BaseFragment
 import com.juanmartin.utils.loadImage
@@ -50,12 +50,12 @@ class DetailsFragment : BaseFragment() {
         arguments?.let {
             viewModel.initIntentData(
                 it.getParcelable(SHOP_ITEM_KEY)
-                    ?: ShopsItem()
+                    ?: Shops.ShopsItem()
             )
         }
     }
 
-    private fun initializeView(shopItem: ShopsItem) {
+    private fun initializeView(shopItem: Shops.ShopsItem) {
         activity?.title = shopItem.name
         binding.ivShopImage.loadImage(shopItem.logo?.url)
 

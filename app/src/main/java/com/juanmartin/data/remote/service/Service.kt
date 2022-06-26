@@ -1,6 +1,6 @@
 package com.juanmartin.data.remote.service
 
-import com.juanmartin.data.dto.comercios.ShopsItem
+import com.juanmartin.data.dto.comercios.Shops
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -10,5 +10,5 @@ import retrofit2.http.GET
 
 interface Service {
     @GET("commerces/public")
-    suspend fun fetchShops(): Response<ArrayList<ShopsItem>>
+    suspend fun fetchShops(): Response<ArrayList<Shops.ShopsItem>>
 }

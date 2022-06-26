@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.juanmartin.data.dto.comercios.ShopsItem
+import com.juanmartin.data.dto.comercios.Shops
 import com.juanmartin.databinding.ShopItemBinding
 import com.juanmartin.ui.base.listeners.RecyclerItemListener
 import com.juanmartin.ui.component.shops.ShopsListViewModel
@@ -13,17 +13,17 @@ import com.juanmartin.ui.component.shops.ShopsListViewModel
 
 class ShopsAdapter(
     private val shopsListViewModel: ShopsListViewModel,
-    private val shops: ArrayList<ShopsItem>
+    private val shops: ArrayList<Shops.ShopsItem>
 ) : RecyclerView.Adapter<ShopsViewHolder>(), Filterable {
 
-    var shopFilterList = ArrayList<ShopsItem>()
+    var shopFilterList = ArrayList<Shops.ShopsItem>()
 
     init {
         shopFilterList = shops
     }
 
     private val onItemClickListener: RecyclerItemListener = object : RecyclerItemListener {
-        override fun onItemSelected(shopItem: ShopsItem) {
+        override fun onItemSelected(shopItem: Shops.ShopsItem) {
             shopsListViewModel.openShopDetails(shopItem)
         }
     }
@@ -49,7 +49,7 @@ class ShopsAdapter(
                 if (charSearch.isEmpty()) {
                     shopFilterList = shops
                 } else {
-                    val resultList = ArrayList<ShopsItem>()
+                    val resultList = ArrayList<Shops.ShopsItem>()
                     for (row in shops) {
                         if (row.category!= null && row.category.contains(charSearch) ||  row.name!!.lowercase().contains(charSearch.lowercase())) {
                             resultList.add(row)
@@ -64,7 +64,7 @@ class ShopsAdapter(
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                shopFilterList = results?.values as ArrayList<ShopsItem>
+                shopFilterList = results?.values as ArrayList<Shops.ShopsItem>
                 shopsListViewModel.updateShops(shopFilterList.size)
                 notifyDataSetChanged()
             }
@@ -73,7 +73,7 @@ class ShopsAdapter(
     }
 
     fun orderNearShops() {
-        val resultList = ArrayList<ShopsItem>()
+        val resultList = ArrayList<Shops.ShopsItem>()
         for (row in shops) {
             if (row.distance != null && row.distance!! < 10) {
                 resultList.add(row)

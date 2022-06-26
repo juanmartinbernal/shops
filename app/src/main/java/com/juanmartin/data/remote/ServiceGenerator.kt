@@ -26,9 +26,9 @@ class ServiceGenerator @Inject constructor() {
         val original = chain.request()
 
         val request = original.newBuilder()
-                .header(contentType, contentTypeValue)
-                .method(original.method, original.body)
-                .build()
+            .header(contentType, contentTypeValue)
+            .method(original.method, original.body)
+            .build()
 
         chain.proceed(request)
     }
@@ -49,10 +49,9 @@ class ServiceGenerator @Inject constructor() {
         okHttpBuilder.readTimeout(timeoutRead.toLong(), TimeUnit.SECONDS)
         val client = okHttpBuilder.build()
         retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL).client(client)
+            .baseUrl(BASE_URL).client(client)
             .addConverterFactory(GsonConverterFactory.create())
-           // .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+            .build()
     }
 
     fun <S> createService(serviceClass: Class<S>): S {

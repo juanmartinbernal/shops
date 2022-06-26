@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.juanmartin.data.DataRepositorySource
 import com.juanmartin.data.Resource
 import com.juanmartin.data.dto.comercios.Shops
-import com.juanmartin.data.dto.comercios.ShopsItem
 import com.juanmartin.ui.base.BaseViewModel
 import com.juanmartin.ui.component.shops.entities.ParamFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,8 +50,8 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
      * UI actions as event, user action is single one time event, Shouldn't be multiple time consumption
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private val openShopDetailsPrivate = MutableLiveData<ShopsItem>()
-    val openShopDetails: LiveData<ShopsItem> get() = openShopDetailsPrivate
+    private val openShopDetailsPrivate = MutableLiveData<Shops.ShopsItem>()
+    val openShopDetails: LiveData<Shops.ShopsItem> get() = openShopDetailsPrivate
 
     /**
      * Error handling as UI
@@ -79,7 +78,7 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
         }
     }
 
-    fun openShopDetails(shopItem: ShopsItem) {
+    fun openShopDetails(shopItem: Shops.ShopsItem) {
         openShopDetailsPrivate.value = shopItem
     }
 

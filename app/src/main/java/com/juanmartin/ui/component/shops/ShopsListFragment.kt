@@ -30,7 +30,6 @@ import com.juanmartin.R
 import com.juanmartin.SHOP_ITEM_KEY
 import com.juanmartin.data.Resource
 import com.juanmartin.data.dto.comercios.Shops
-import com.juanmartin.data.dto.comercios.ShopsItem
 import com.juanmartin.data.error.SEARCH_ERROR
 import com.juanmartin.databinding.ShopsActivityBinding
 import com.juanmartin.ui.base.BaseFragment
@@ -164,7 +163,7 @@ class ShopsListFragment : BaseFragment() {
         if (shops.shopsList.isNotEmpty()) {
             shops.shopsList.forEach {
                 if (!categories.contains(it.category)) {
-                    if (it.category != null && it.category.isNotEmpty()) {
+                    if (it.category.isNotEmpty()) {
                         categories.add(it.category)
                     }
                 }
@@ -177,7 +176,7 @@ class ShopsListFragment : BaseFragment() {
 
     }
 
-    private fun navigateToDetailsScreen(shopItem: ShopsItem) {
+    private fun navigateToDetailsScreen(shopItem: Shops.ShopsItem) {
         val bundle = bundleOf(SHOP_ITEM_KEY to shopItem)
         navigateWithParams(R.id.detailsActivity, bundle)
     }

@@ -6,7 +6,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.juanmartin.data.Resource
 import com.juanmartin.data.dto.comercios.Shops
-import com.juanmartin.data.dto.comercios.ShopsItem
 import com.juanmartin.data.error.DEFAULT_ERROR
 import com.juanmartin.data.error.NETWORK_ERROR
 import com.juanmartin.data.error.NO_INTERNET_CONNECTION
@@ -29,8 +28,8 @@ constructor(
         return when (val response = processCall(service::fetchShops)) {
             is List<*> -> {
                // Resource.Success(data = Shops(response as ArrayList<ShopsItem>))
-                val result = Shops(response as ArrayList<ShopsItem>)
-                val filter : MutableList<ShopsItem> = ArrayList()
+                val result = Shops(response as ArrayList<Shops.ShopsItem>)
+                val filter : MutableList<Shops.ShopsItem> = ArrayList()
                 val currentLocation = Location("provider")
                 currentLocation.latitude = params.latitude
                 currentLocation.longitude = params.longitude
@@ -44,7 +43,7 @@ constructor(
                         filter.add(it)
                     }
                 }
-                Resource.Success(data = Shops(filter as ArrayList<ShopsItem>))
+                Resource.Success(data = Shops(filter as ArrayList<Shops.ShopsItem>))
             }
             else -> {
                 return Resource.DataError(errorCode = DEFAULT_ERROR)

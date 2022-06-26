@@ -10,7 +10,7 @@ import com.juanmartin.FOOD_CATEGORY
 import com.juanmartin.LEISURE_CATEGORY
 import com.juanmartin.R.color.*
 import com.juanmartin.SHOPPING_CATEGORY
-import com.juanmartin.data.dto.comercios.ShopsItem
+import com.juanmartin.data.dto.comercios.Shops
 import com.juanmartin.databinding.ShopItemBinding
 import com.juanmartin.ui.base.listeners.RecyclerItemListener
 import com.juanmartin.utils.loadImage
@@ -20,7 +20,7 @@ import java.io.InputStream
 class ShopsViewHolder(private val itemBinding: ShopItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(shopItem: ShopsItem, recyclerItemListener: RecyclerItemListener) {
+    fun bind(shopItem: Shops.ShopsItem, recyclerItemListener: RecyclerItemListener) {
         drawCategoryImage(shopItem.category)
         itemBinding.tvName.text = shopItem.name
         itemBinding.tvCaption.text = shopItem.openingHours
