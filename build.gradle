@@ -27,7 +27,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    picassoVersion = '2.71828'
+    picassoVersion = '2.8'
     retrofitVersion = '2.9.0'
     okhttpInterceptorVersion = '4.9.0'
     activityKtxVersion= '1.6.0-alpha05'
