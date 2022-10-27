@@ -230,48 +230,13 @@ class ShopsListFragment : BaseFragment() {
             is Resource.Loading -> showLoadingView()
             is Resource.Success -> status.data?.let { bindListData(shops = it) }
             is Resource.DataError -> {
-                //showDataView(false)
-                //status.errorCode?.let { shopsListViewModel.showToastMessage(it) }
-                //try get local data
-                val list = getLocalData(requireContext(), currentLocation)
-                val shops = Resource.Success(data = Shops(list as ArrayList<Shops.ShopsItem>)).data
-                shops?.let { bindListData(it) }
-
+                showDataView(false)
+                status.errorCode?.let { shopsListViewModel.showToastMessage(it) }
             }
         }
     }
 
-    private fun getLocalData(context: Context, location : Location?): List<Shops.ShopsItem> {
 
-        lateinit var jsonString: String
-        try {
-            jsonString = context.assets.open("shops.json")
-                .bufferedReader()
-                .use { it.readText() }
-        } catch (ioException: IOException) {
-            //AppLogger.d(ioException)
-        }
-        val filter : MutableList<Shops.ShopsItem> = ArrayList()
-        val currentLocation = Location("provider")
-        if (location != null) {
-            currentLocation.latitude = location.latitude
-        }
-        if (location != null) {
-            currentLocation.longitude = location.longitude
-        }
-       val response :  List<Shops.ShopsItem> = Gson().fromJson(jsonString,  Array<Shops.ShopsItem>::class.java).toList()
-        val result = Shops(response as ArrayList<Shops.ShopsItem>)
-        result.shopsList.forEach {
-            if(it.latitude != null && it.longitude != null){
-                val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
-                val shopLocationMaps = LatLng(it.latitude, it.longitude)
-                val distance = SphericalUtil.computeDistanceBetween(myLocation, shopLocationMaps);
-                it.distance = distance / 1000 //km
-                filter.add(it)
-            }
-        }
-        return filter
-    }
 
     private val permReqLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->

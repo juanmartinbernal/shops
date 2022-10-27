@@ -2,6 +2,7 @@ package com.juanmartin.data.remote
 
 import com.juanmartin.data.Resource
 import com.juanmartin.data.dto.comercios.Shops
+import com.juanmartin.data.local.LocalData
 import com.juanmartin.ui.component.shops.entities.ParamFilter
 
 
@@ -10,5 +11,5 @@ import com.juanmartin.ui.component.shops.entities.ParamFilter
  */
 
 internal interface RemoteDataSource {
-    suspend fun requestShops(params : ParamFilter): Resource<Shops>
+    suspend fun requestShops(params : ParamFilter, localRepository : LocalData): Resource<Shops>
 }

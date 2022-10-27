@@ -24,7 +24,7 @@ class DataRepository @Inject constructor(
 
     override suspend fun requestShops(params: ParamFilter): Flow<Resource<Shops>> {
         return flow {
-            emit(remoteRepository.requestShops(params))
+            emit(remoteRepository.requestShops(params, localRepository))
         }.flowOn(ioDispatcher)
     }
 
