@@ -24,7 +24,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.google.maps.android.SphericalUtil
 import com.juanmartin.ALL_CATEGORY
 import com.juanmartin.R
 import com.juanmartin.SHOP_ITEM_KEY
@@ -37,6 +41,7 @@ import com.juanmartin.ui.component.shops.adapter.ShopCategoryAdapter
 import com.juanmartin.ui.component.shops.adapter.ShopsAdapter
 import com.juanmartin.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 
 
 @AndroidEntryPoint
@@ -47,6 +52,7 @@ class ShopsListFragment : BaseFragment() {
     private lateinit var shopAdapter: ShopsAdapter
     private lateinit var shopCategoryAdapter: ShopCategoryAdapter
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private var currentLocation: Location? = null
 
     private var PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -224,10 +230,47 @@ class ShopsListFragment : BaseFragment() {
             is Resource.Loading -> showLoadingView()
             is Resource.Success -> status.data?.let { bindListData(shops = it) }
             is Resource.DataError -> {
-                showDataView(false)
-                status.errorCode?.let { shopsListViewModel.showToastMessage(it) }
+                //showDataView(false)
+                //status.errorCode?.let { shopsListViewModel.showToastMessage(it) }
+                //try get local data
+                val list = getLocalData(requireContext(), currentLocation)
+                val shops = Resource.Success(data = Shops(list as ArrayList<Shops.ShopsItem>)).data
+                shops?.let { bindListData(it) }
+
             }
         }
+    }
+
+    private fun getLocalData(context: Context, location : Location?): List<Shops.ShopsItem> {
+
+        lateinit var jsonString: String
+        try {
+            jsonString = context.assets.open("shops.json")
+                .bufferedReader()
+                .use { it.readText() }
+        } catch (ioException: IOException) {
+            //AppLogger.d(ioException)
+        }
+        val filter : MutableList<Shops.ShopsItem> = ArrayList()
+        val currentLocation = Location("provider")
+        if (location != null) {
+            currentLocation.latitude = location.latitude
+        }
+        if (location != null) {
+            currentLocation.longitude = location.longitude
+        }
+       val response :  List<Shops.ShopsItem> = Gson().fromJson(jsonString,  Array<Shops.ShopsItem>::class.java).toList()
+        val result = Shops(response as ArrayList<Shops.ShopsItem>)
+        result.shopsList.forEach {
+            if(it.latitude != null && it.longitude != null){
+                val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
+                val shopLocationMaps = LatLng(it.latitude, it.longitude)
+                val distance = SphericalUtil.computeDistanceBetween(myLocation, shopLocationMaps);
+                it.distance = distance / 1000 //km
+                filter.add(it)
+            }
+        }
+        return filter
     }
 
     private val permReqLauncher =
@@ -246,11 +289,11 @@ class ShopsListFragment : BaseFragment() {
             if (isLocationEnabled()) {
 
                 mFusedLocationClient.lastLocation.addOnCompleteListener(requireParentFragment().requireActivity()) { task ->
-                    val location: Location? = task.result
-                    if (location == null) {
+                    currentLocation = task.result
+                    if (currentLocation == null) {
                         requestNewLocationData()
                     } else {
-                        shopsListViewModel.getShops(location)
+                        shopsListViewModel.getShops(currentLocation)
                     }
                 }
             } else {
@@ -286,7 +329,8 @@ class ShopsListFragment : BaseFragment() {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation: Location? = locationResult.lastLocation
-            shopsListViewModel.getShops(mLastLocation)
+            currentLocation = mLastLocation
+            shopsListViewModel.getShops(currentLocation)
         }
     }
 
