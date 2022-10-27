@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juanmartin">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <!--https://github.com/ahmedeltaher/MVVM-Kotlin-Android-Architecture/tree/master/app/src/main-->
 
     <uses-permission android:name="android.permission.INTERNET" />

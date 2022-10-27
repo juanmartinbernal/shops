@@ -46,7 +46,7 @@ class ShopsListFragment : BaseFragment() {
     private val shopsListViewModel: ShopsListViewModel by viewModels()
     private lateinit var shopAdapter: ShopsAdapter
     private lateinit var shopCategoryAdapter: ShopCategoryAdapter
-    lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     private var PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -105,12 +105,14 @@ class ShopsListFragment : BaseFragment() {
         })
 
         item?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-                shopAdapter.filter.filter("")
-                return true
+
+
+            override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
+               return true
             }
 
-            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+            override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
+                shopAdapter.filter.filter("")
                 return true
             }
         })
