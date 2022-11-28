@@ -57,7 +57,7 @@ class DetailsFragment : BaseFragment() {
 
     private fun initializeView(shopItem: Shops.ShopsItem) {
         activity?.title = shopItem.name
-        binding.ivShopImage.loadImage(shopItem.logo?.url)
+        binding.ivShopImage.loadImage(shopItem.logo.url)
 
         //location
         val latitude = shopItem.latitude
@@ -80,9 +80,9 @@ class DetailsFragment : BaseFragment() {
         binding.txtInfo1Extras.text = shopItem.shortDescription
         binding.txtInfo2Extras.text = shopItem.openingHours
         binding.txtInfo2Extras.isSelected = true
-        binding.txtInfo3Extras.text = shopItem.contact?.phone
+        binding.txtInfo3Extras.text = shopItem.contact.phone
         binding.txtInfo4Extras.text =
-            shopItem.address?.city.plus(", ").plus(shopItem.address?.street)
+            shopItem.address.city.plus(", ").plus(shopItem.address.street)
 
         //about shop
         binding.tvDescription.text = shopItem.description

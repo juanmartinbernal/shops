@@ -38,7 +38,7 @@ class LocalData @Inject constructor(val context: Context) {
             if(it.latitude != null && it.longitude != null){
                 val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
                 val shopLocationMaps = LatLng(it.latitude, it.longitude)
-                val distance = SphericalUtil.computeDistanceBetween(myLocation, shopLocationMaps);
+                val distance = SphericalUtil.computeDistanceBetween(myLocation, shopLocationMaps)
                 it.distance = distance / 1000 //km
                 filter.add(it)
             }

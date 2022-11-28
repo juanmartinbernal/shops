@@ -24,11 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.maps.android.SphericalUtil
 import com.juanmartin.ALL_CATEGORY
 import com.juanmartin.R
 import com.juanmartin.SHOP_ITEM_KEY
@@ -41,7 +37,6 @@ import com.juanmartin.ui.component.shops.adapter.ShopCategoryAdapter
 import com.juanmartin.ui.component.shops.adapter.ShopsAdapter
 import com.juanmartin.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 
 
 @AndroidEntryPoint
@@ -132,10 +127,8 @@ class ShopsListFragment : BaseFragment() {
     }
 
     private fun handleSearch(query: String) {
-        //if (query.isNotEmpty()) {
         binding.pbLoading.visibility = VISIBLE
         shopsListViewModel.onSearchClick(query)
-        //}
     }
 
     private fun filterByCategory(category: String) {
