@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val timeoutRead = 30   //In seconds
+private const val timeoutRead = 5  //In seconds
 private const val contentType = "Content-Type"
 private const val contentTypeValue = "application/json"
-private const val timeoutConnect = 30   //In seconds
+private const val timeoutConnect = 5   //In seconds
 
 @Singleton
 class ServiceGenerator @Inject constructor() {
