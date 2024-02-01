@@ -25,19 +25,6 @@ fun View.hideKeyboard() {
         ?.hideSoftInputFromWindow(this.windowToken, 0)
 }
 
-fun View.toVisible() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.toGone() {
-    this.visibility = View.GONE
-}
-
-fun View.toInvisible() {
-    this.visibility = View.INVISIBLE
-}
-
-
 /**
  * Transforms static java function Snackbar.make() to an extension function on View.
  */
@@ -103,7 +90,7 @@ fun View.showToast(
 
 fun ImageView.loadImage(@DrawableRes resId: Int) = Picasso.get().load(resId).into(this)
 fun ImageView.loadImage(url: String?) {
-    if(url != null && url.isNotEmpty()){
+    if(!url.isNullOrEmpty()){
         Picasso.get().load(url).placeholder(android.R.drawable.sym_def_app_icon)
             .error(android.R.drawable.sym_def_app_icon).into(this)
     }else{

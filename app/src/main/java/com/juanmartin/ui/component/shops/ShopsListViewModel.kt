@@ -19,12 +19,11 @@ import javax.inject.Inject
 class ShopsListViewModel @Inject
 constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseViewModel() {
 
-    val params = ParamFilter(0.0, 0.0, "")
+    var params = ParamFilter(0.0, 0.0, "")
 
     /**
      * Data --> LiveData, Exposed as LiveData, Locally in viewModel as MutableLiveData
      */
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val shopsLiveDataPrivate = MutableLiveData<Resource<Shops>>()
     val shopsLiveData: LiveData<Resource<Shops>> get() = shopsLiveDataPrivate
 
@@ -37,38 +36,34 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
     val totalNearShopsPrivate = MutableLiveData<Int>()
     val totalNearShopsData: LiveData<Int> get() = totalNearShopsPrivate
 
-    //TODO check to make them as one Resource
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val searchFoundPrivate: MutableLiveData<String> = MutableLiveData()
     val searchFound: LiveData<String> get() = searchFoundPrivate
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val noSearchFoundPrivate: MutableLiveData<Unit> = MutableLiveData()
     val noSearchFound: LiveData<Unit> get() = noSearchFoundPrivate
 
     /**
      * UI actions as event, user action is single one time event, Shouldn't be multiple time consumption
      */
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val openShopDetailsPrivate = MutableLiveData<Shops.ShopsItem>()
     val openShopDetails: LiveData<Shops.ShopsItem> get() = openShopDetailsPrivate
 
     /**
      * Error handling as UI
      */
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val showSnackBarPrivate = MutableLiveData<Any>()
     val showSnackBar: LiveData<Any> get() = showSnackBarPrivate
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val showToastPrivate = MutableLiveData<Any>()
     val showToast: LiveData<Any> get() = showToastPrivate
 
 
     fun getShops(location: Location?) {
         if(location != null) {
-            params.latitude = location.latitude
-            params.longitude = location.longitude
+            params = params.copy(
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
         }
         viewModelScope.launch {
             shopsLiveDataPrivate.value = Resource.Loading()
@@ -102,6 +97,4 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
     fun onSearchClick(query: String) {
         searchFoundPrivate.value = query
     }
-
-
 }

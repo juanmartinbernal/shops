@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_outside16dp"
         android:baselineAligned="false"
+        app:layout_constraintBottom_toTopOf="@id/rv_category_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/rv_category_list"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -24,10 +24,10 @@
             android:layout_marginEnd="32dp"
             android:background="@drawable/custom_border"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/lnyTotalNearShops"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/txtTotalShops"
@@ -54,10 +54,10 @@
             android:background="@drawable/custom_border"
             android:orientation="vertical"
             android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/lnyTotalShops">
+            app:layout_constraintStart_toEndOf="@+id/lnyTotalShops"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/txtTotalNearShops"
@@ -76,7 +76,6 @@
                 android:textColor="@color/white" />
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -87,13 +86,12 @@
         android:layout_marginStart="@dimen/margin_outside16dp"
         android:layout_marginEnd="@dimen/margin_outside16dp"
         android:orientation="horizontal"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/rv_shop_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintlayoutTotal"
         tools:listitem="@layout/shop_category_item">
-
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -101,28 +99,13 @@
         android:id="@+id/rv_shop_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_category_list"
         tools:listitem="@layout/shop_item" />
-
-    <FrameLayout
-        android:id="@+id/pb_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true" />
-    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_no_data"
@@ -137,5 +120,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

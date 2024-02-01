@@ -10,7 +10,6 @@
     app:cardElevation="@dimen/space_min4d"
     app:cardUseCompatPadding="true">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lnyHeader"
         android:layout_width="wrap_content"
@@ -44,6 +43,4 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="categorie" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.cardview.widget.CardView>

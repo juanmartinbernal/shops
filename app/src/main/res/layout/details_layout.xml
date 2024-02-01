@@ -19,7 +19,9 @@
             android:layout_height="150dp"
             android:elevation="@dimen/space_min4d"
             app:cardCornerRadius="@dimen/cardview_border8dp"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
                 android:id="@+id/iv_shop_Image"
@@ -38,8 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_outside16dp"
             app:cardBackgroundColor="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/cardImgShop">
-
+            app:layout_constraintTop_toBottomOf="@+id/cardImgShop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -101,7 +104,9 @@
             android:elevation="@dimen/space_min4d"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/cardview_border8dp"
-            app:layout_constraintTop_toBottomOf="@+id/cardLocation">
+            app:layout_constraintTop_toBottomOf="@+id/cardLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -120,7 +125,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
                 <TextView
                     android:id="@+id/txtInfo1Extras"
@@ -209,7 +213,9 @@
             android:elevation="@dimen/space_min4d"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/cardview_border8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_about_shop">
+            app:layout_constraintTop_toBottomOf="@+id/tv_about_shop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/tv_description"

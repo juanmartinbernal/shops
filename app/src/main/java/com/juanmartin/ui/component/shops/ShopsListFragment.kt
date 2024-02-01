@@ -20,6 +20,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,7 +51,7 @@ class ShopsListFragment : BaseFragment() {
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var currentLocation: Location? = null
 
-    private var PERMISSIONS = arrayOf(
+    private var permissions = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
@@ -69,15 +71,19 @@ class ShopsListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManagerCategoriesShop =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val layoutManager = LinearLayoutManager(context)
-        binding.rvCategoryList.layoutManager = layoutManagerCategoriesShop
-        binding.rvCategoryList.setHasFixedSize(true)
-        binding.rvShopList.layoutManager = layoutManager
-        binding.rvShopList.setHasFixedSize(true)
-        binding.lnyTotalNearShops.setOnClickListener { shopAdapter.orderNearShops() }
+        initViews()
+        setUpListeners()
+        setUpLocation()
+    }
+
+    private fun initViews() {
         activity?.title = context?.getString(R.string.app_name)
+    }
+
+    private fun setUpListeners() {
+        binding.lnyTotalNearShops.setOnClickListener { shopAdapter.orderNearShops() }
+    }
+    private fun setUpLocation() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireParentFragment().requireActivity())
         getLastLocation()
     }
@@ -106,8 +112,6 @@ class ShopsListFragment : BaseFragment() {
         })
 
         item?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-
-
             override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
                return true
             }
@@ -132,7 +136,7 @@ class ShopsListFragment : BaseFragment() {
     }
 
     private fun filterByCategory(category: String) {
-        shopsListViewModel.params.category = category
+        shopsListViewModel.params = shopsListViewModel.params.copy(category = category)
         shopAdapter.filter.filter(category)
     }
 
@@ -168,20 +172,17 @@ class ShopsListFragment : BaseFragment() {
                         categories.add(it.category)
                     }
                 }
-
             }
             categories.add(0, ALL_CATEGORY)
             shopCategoryAdapter = ShopCategoryAdapter(shopsListViewModel, categories)
             binding.rvCategoryList.adapter = shopCategoryAdapter
         }
-
     }
 
     private fun navigateToDetailsScreen(shopItem: Shops.ShopsItem) {
         val bundle = bundleOf(SHOP_ITEM_KEY to shopItem)
         navigateWithParams(R.id.detailsActivity, bundle)
     }
-
 
     private fun observeSnackBarMessages(event: LiveData<Any>) {
         binding.root.setupSnackbar(this, event, Snackbar.LENGTH_LONG)
@@ -198,24 +199,23 @@ class ShopsListFragment : BaseFragment() {
     private fun showDataView(show: Boolean) {
         binding.tvNoData.visibility = if (show) INVISIBLE else VISIBLE
         binding.rvShopList.visibility = if (show) VISIBLE else INVISIBLE
-        binding.pbLoading.toGone()
+        binding.pbLoading.isVisible = false
     }
 
     private fun showLoadingView() {
-        binding.pbLoading.toVisible()
-        binding.tvNoData.toInvisible()
-        binding.rvShopList.toInvisible()
+        binding.pbLoading.isVisible = true
+        binding.tvNoData.isInvisible = true
+        binding.rvShopList.isInvisible = true
     }
-
 
     private fun showSearchResult(query: String) {
         shopAdapter.filter.filter(query)
-        binding.pbLoading.toGone()
+        binding.pbLoading.isVisible = false
     }
 
     private fun noSearchResult(unit: Unit) {
         showSearchError()
-        binding.pbLoading.toGone()
+        binding.pbLoading.isVisible = false
     }
 
     private fun handleCategoriesList(status: Resource<Shops>) {
@@ -243,7 +243,7 @@ class ShopsListFragment : BaseFragment() {
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        if (hasPermissions(activity as Context, PERMISSIONS)) {
+        if (hasPermissions(activity as Context, permissions)) {
             if (isLocationEnabled()) {
 
                 mFusedLocationClient.lastLocation.addOnCompleteListener(requireParentFragment().requireActivity()) { task ->
@@ -261,7 +261,7 @@ class ShopsListFragment : BaseFragment() {
             }
         } else {
             permReqLauncher.launch(
-                PERMISSIONS
+                permissions
             )
         }
     }

@@ -62,6 +62,7 @@ class DetailsFragment : BaseFragment() {
         //location
         val latitude = shopItem.latitude
         val longitude = shopItem.longitude
+
         binding.txtLocation.setOnClickListener {
             goToMap(latitude, longitude)
         }
