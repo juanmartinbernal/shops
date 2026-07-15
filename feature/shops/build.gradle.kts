@@ -20,6 +20,26 @@ android {
         }
     }
 
+    flavorDimensions += "default"
+    productFlavors {
+        create("dev") {
+            dimension = "default"
+            buildConfigField(
+                "String",
+                "MAPS_API_KEY",
+                "\"AIzaSyBnuBof4SnWG7zL55lVE__E2xDqhJz8a3o\""
+            )
+        }
+        create("prod") {
+            dimension = "default"
+            buildConfigField(
+                "String",
+                "MAPS_API_KEY",
+                "\"AIzaSyBnuBof4SnWG7zL55lVE__E2xDqhJz8a3o\""
+            )
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -29,12 +49,13 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
     implementation(project(":core"))
-    implementation(project(":data"))
+    implementation(project(":domain"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)

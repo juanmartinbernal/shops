@@ -20,6 +20,18 @@ android {
         }
     }
 
+    flavorDimensions += "default"
+    productFlavors {
+        create("dev") {
+            dimension = "default"
+            buildConfigField("String", "BASE_URL", "\"http://dev.klikin.com/\"")
+        }
+        create("prod") {
+            dimension = "default"
+            buildConfigField("String", "BASE_URL", "\"http://prod.klikin.com/\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -34,6 +46,8 @@ android {
 }
 
 dependencies {
+    api(project(":domain"))
+
     implementation(platform(libs.androidx.compose.bom))
     api(libs.androidx.compose.ui)
     api(libs.androidx.compose.ui.graphics)

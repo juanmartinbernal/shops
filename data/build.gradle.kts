@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -20,6 +19,12 @@ android {
         }
     }
 
+    flavorDimensions += "default"
+    productFlavors {
+        create("dev") { dimension = "default" }
+        create("prod") { dimension = "default" }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -30,6 +35,7 @@ android {
 }
 
 dependencies {
+    api(project(":domain"))
     api(project(":core"))
 
     testImplementation(libs.junit)

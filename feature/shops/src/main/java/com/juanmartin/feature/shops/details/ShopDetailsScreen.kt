@@ -39,13 +39,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.juanmartin.feature.shops.BuildConfig
 import com.juanmartin.feature.shops.R
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 private const val STATIC_MAPS_URL = "https://maps.googleapis.com/maps/api/staticmap?center="
-private const val STATIC_MAPS_KEY = "AIzaSyBnuBof4SnWG7zL55lVE__E2xDqhJz8a3o"
+private val STATIC_MAPS_KEY = BuildConfig.MAPS_API_KEY
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

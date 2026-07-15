@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object NetworkConstants {
-    const val BASE_URL = "http://prod.klikin.com/"
+    val BASE_URL: String = BuildConfig.BASE_URL
     private const val TIMEOUT_SECONDS = 15L
 
     fun okHttpClient(): OkHttpClient {
