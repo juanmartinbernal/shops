@@ -3,6 +3,8 @@ package com.juanmartin.data.local
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.juanmartin.data.model.ShopDto
+import com.juanmartin.data.model.toDomain
 import com.juanmartin.data.util.DistanceCalculator
 import com.juanmartin.domain.location.GeoLocation
 import com.juanmartin.domain.model.Shop
@@ -20,8 +22,9 @@ class LocalShopsDataSource(
         } catch (e: IOException) {
             return emptyList()
         }
-        val type = object : TypeToken<List<Shop>>() {}.type
-        val shops: List<Shop> = gson.fromJson(json, type) ?: emptyList()
+        val type = object : TypeToken<List<ShopDto>>() {}.type
+        val dtos: List<ShopDto> = gson.fromJson(json, type) ?: emptyList()
+        val shops = dtos.map { it.toDomain() }
         return DistanceCalculator.withDistances(shops, from)
     }
 

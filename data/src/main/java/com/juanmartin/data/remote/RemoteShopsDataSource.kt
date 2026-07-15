@@ -2,6 +2,7 @@ package com.juanmartin.data.remote
 
 import com.juanmartin.core.error.ErrorCodes
 import com.juanmartin.core.network.ConnectivityChecker
+import com.juanmartin.data.model.toDomain
 import com.juanmartin.data.util.DistanceCalculator
 import com.juanmartin.domain.location.GeoLocation
 import com.juanmartin.domain.model.Shop
@@ -25,7 +26,7 @@ class RemoteShopsDataSource(
         return try {
             val response = api.fetchShops()
             if (response.isSuccessful) {
-                val shops = response.body().orEmpty()
+                val shops = response.body().orEmpty().map { it.toDomain() }
                 RemoteResult.Success(DistanceCalculator.withDistances(shops, from))
             } else {
                 RemoteResult.Failure(response.code())
