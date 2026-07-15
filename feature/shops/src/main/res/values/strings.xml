@@ -1,0 +1,10 @@
+<resources>
+    <string name="shops_title">Comercios</string>
+    <string name="search">Buscar</string>
+    <string name="no_data">No Data</string>
+    <string name="total_shops">Total: %1$d</string>
+    <string name="near_shops">Cercanos: %1$d</string>
+    <string name="location">Localización</string>
+    <string name="go_location">Llévame aquí</string>
+    <string name="about_shop">Sobre el comercio</string>
+</resources>

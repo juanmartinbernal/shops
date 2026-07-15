@@ -1,7 +1,22 @@
 package com.juanmartin
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.juanmartin.core.di.coreModule
+import com.juanmartin.data.di.dataModule
+import com.juanmartin.feature.shops.di.shopsFeatureModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
-@HiltAndroidApp
-open class App : Application()
+class App : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger(Level.ERROR)
+            androidContext(this@App)
+            modules(coreModule, dataModule, shopsFeatureModule)
+        }
+    }
+}
