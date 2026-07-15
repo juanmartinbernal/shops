@@ -4,8 +4,8 @@ import com.google.gson.Gson
 import com.juanmartin.data.local.LocalShopsDataSource
 import com.juanmartin.data.remote.RemoteShopsDataSource
 import com.juanmartin.data.remote.ShopsApi
-import com.juanmartin.data.repository.ShopsRepository
 import com.juanmartin.data.repository.ShopsRepositoryImpl
+import com.juanmartin.domain.repository.ShopsRepository
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module

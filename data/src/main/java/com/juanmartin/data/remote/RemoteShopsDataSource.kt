@@ -1,10 +1,10 @@
 package com.juanmartin.data.remote
 
 import com.juanmartin.core.error.ErrorCodes
-import com.juanmartin.core.location.GeoLocation
 import com.juanmartin.core.network.ConnectivityChecker
-import com.juanmartin.data.model.Shop
 import com.juanmartin.data.util.DistanceCalculator
+import com.juanmartin.domain.location.GeoLocation
+import com.juanmartin.domain.model.Shop
 import java.io.IOException
 
 /** Resultado de una llamada remota: datos o un código de error. */

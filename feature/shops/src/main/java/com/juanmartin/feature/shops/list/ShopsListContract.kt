@@ -3,7 +3,7 @@ package com.juanmartin.feature.shops.list
 import com.juanmartin.core.mvi.UiEffect
 import com.juanmartin.core.mvi.UiIntent
 import com.juanmartin.core.mvi.UiState
-import com.juanmartin.data.model.Shop
+import com.juanmartin.domain.model.Shop
 
 /** Categoría especial que representa "todas". */
 const val ALL_CATEGORY = ""

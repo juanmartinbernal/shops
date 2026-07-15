@@ -3,7 +3,7 @@ package com.juanmartin.feature.shops.details
 import com.juanmartin.core.mvi.UiEffect
 import com.juanmartin.core.mvi.UiIntent
 import com.juanmartin.core.mvi.UiState
-import com.juanmartin.data.model.Shop
+import com.juanmartin.domain.model.Shop
 
 data class ShopDetailsState(
     val isLoading: Boolean = true,

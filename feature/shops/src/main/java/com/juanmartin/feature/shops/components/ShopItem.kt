@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.juanmartin.data.model.Shop
+import com.juanmartin.domain.model.Shop
 
 @Composable
 fun ShopItem(

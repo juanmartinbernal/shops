@@ -1,11 +1,12 @@
 package com.juanmartin.data.repository
 
-import com.juanmartin.core.common.Resource
-import com.juanmartin.core.location.GeoLocation
 import com.juanmartin.data.local.LocalShopsDataSource
-import com.juanmartin.data.model.Shop
 import com.juanmartin.data.remote.RemoteResult
 import com.juanmartin.data.remote.RemoteShopsDataSource
+import com.juanmartin.domain.common.Resource
+import com.juanmartin.domain.location.GeoLocation
+import com.juanmartin.domain.model.Shop
+import com.juanmartin.domain.repository.ShopsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.LocationManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.juanmartin.domain.location.GeoLocation
 import kotlinx.coroutines.tasks.await
 
 /** Obtiene la ubicación actual del dispositivo. */

@@ -1,10 +1,10 @@
 package com.juanmartin.feature.shops.details
 
 import com.juanmartin.core.mvi.MviViewModel
-import com.juanmartin.data.repository.ShopsRepository
+import com.juanmartin.domain.usecase.GetShopByIdUseCase
 
 class ShopDetailsViewModel(
-    private val repository: ShopsRepository
+    private val getShopById: GetShopByIdUseCase
 ) : MviViewModel<ShopDetailsState, ShopDetailsIntent, ShopDetailsEffect>() {
 
     override fun initialState() = ShopDetailsState()
@@ -12,7 +12,7 @@ class ShopDetailsViewModel(
     override fun onIntent(intent: ShopDetailsIntent) {
         when (intent) {
             is ShopDetailsIntent.Load -> {
-                val shop = repository.getShopById(intent.shopId)
+                val shop = getShopById(intent.shopId)
                 setState { copy(isLoading = false, shop = shop) }
             }
 

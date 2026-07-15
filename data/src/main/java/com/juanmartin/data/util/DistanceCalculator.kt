@@ -1,8 +1,8 @@
 package com.juanmartin.data.util
 
 import android.location.Location
-import com.juanmartin.core.location.GeoLocation
-import com.juanmartin.data.model.Shop
+import com.juanmartin.domain.location.GeoLocation
+import com.juanmartin.domain.model.Shop
 
 /** Calcula la distancia en km entre la ubicación del usuario y cada comercio. */
 object DistanceCalculator {

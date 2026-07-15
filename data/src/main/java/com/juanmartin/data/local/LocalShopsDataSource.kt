@@ -3,9 +3,9 @@ package com.juanmartin.data.local
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.juanmartin.core.location.GeoLocation
-import com.juanmartin.data.model.Shop
 import com.juanmartin.data.util.DistanceCalculator
+import com.juanmartin.domain.location.GeoLocation
+import com.juanmartin.domain.model.Shop
 import java.io.IOException
 
 /** Fuente de datos local: lee los comercios desde assets/shops.json. */

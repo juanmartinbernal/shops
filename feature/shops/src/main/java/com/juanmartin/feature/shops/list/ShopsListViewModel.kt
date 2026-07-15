@@ -1,19 +1,19 @@
 package com.juanmartin.feature.shops.list
 
 import androidx.lifecycle.viewModelScope
-import com.juanmartin.core.common.Resource
 import com.juanmartin.core.error.ErrorMapper
-import com.juanmartin.core.location.GeoLocation
 import com.juanmartin.core.location.LocationProvider
 import com.juanmartin.core.mvi.MviViewModel
-import com.juanmartin.data.model.Shop
-import com.juanmartin.data.repository.ShopsRepository
+import com.juanmartin.domain.common.Resource
+import com.juanmartin.domain.location.GeoLocation
+import com.juanmartin.domain.model.Shop
+import com.juanmartin.domain.usecase.GetShopsUseCase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class ShopsListViewModel(
-    private val repository: ShopsRepository,
+    private val getShops: GetShopsUseCase,
     private val locationProvider: LocationProvider,
     private val errorMapper: ErrorMapper
 ) : MviViewModel<ShopsListState, ShopsListIntent, ShopsListEffect>() {
@@ -43,7 +43,7 @@ class ShopsListViewModel(
         viewModelScope.launch {
             val location = runCatching { locationProvider.getCurrentLocation() }.getOrNull()
                 ?: GeoLocation(0.0, 0.0)
-            repository.getShops(location)
+            getShops(location)
                 .onEach { resource -> reduce(resource) }
                 .launchIn(viewModelScope)
         }
